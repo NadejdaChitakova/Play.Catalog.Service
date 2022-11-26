@@ -23,9 +23,16 @@ namespace Play.Catalog.Service.Controllers
         }
 
         [HttpGet("{id}")]
-        public ItemDTO GetById(Guid id)
+        public ActionResult<ItemDTO> GetById(Guid id)
         {
-            return itemDTOs.Where(i => i.Equals(id)).SingleOrDefault();
+           var item = itemDTOs.Where(i => i.Equals(id)).SingleOrDefault();
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return item;
         }
 
         [HttpPost]
@@ -38,22 +45,34 @@ namespace Play.Catalog.Service.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(Guid id, string name, string description, decimal price)
+        public ActionResult Put(Guid id, string name, string description, decimal price)
         {
            var existingItem = itemDTOs.Where(item => item.Id.Equals(id)).SingleOrDefault();
-            if (existingItem != null)
+
+            if (existingItem == null)
             {
-                existingItem.Name = name;
-                existingItem.Description = description;
-                existingItem.Price = price;
+                return NotFound();
+               
             }
+
+            existingItem.Name = name;
+            existingItem.Description = description;
+            existingItem.Price = price;
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var item = itemDTOs.Remove(itemDTOs.Where(itemid => itemid.Equals(id)).SingleOrDefault()); 
+            var item = itemDTOs.Where(itemid => itemid.Equals(id)).SingleOrDefault();
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            itemDTOs.Remove(item);
 
             return NoContent();
         }
