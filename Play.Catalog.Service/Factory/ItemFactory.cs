@@ -4,7 +4,7 @@ namespace Play.Catalog.Service.Factory
 {
     public static class ItemFactory
     {
-        public static Item CreateItemDTO(string name, string description, decimal price)
+        public static Item CreateItem(string name, string description, decimal price)
         {
             Item itemDTO = new();
             itemDTO.Id= Guid.NewGuid();
