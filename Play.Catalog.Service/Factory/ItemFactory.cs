@@ -4,9 +4,9 @@ namespace Play.Catalog.Service.Factory
 {
     public static class ItemFactory
     {
-        public static ItemDTO CreateItemDTO(string name, string description, decimal price)
+        public static Item CreateItemDTO(string name, string description, decimal price)
         {
-            ItemDTO itemDTO = new();
+            Item itemDTO = new();
             itemDTO.Id= Guid.NewGuid();
             itemDTO.Name= name;
             itemDTO.Description= description;

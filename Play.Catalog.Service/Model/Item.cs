@@ -2,7 +2,7 @@
 
 namespace Play.Catalog.Service.Model
 {
-    public class ItemDTO
+    public class Item
     {
         public Guid Id { get; set; }
 

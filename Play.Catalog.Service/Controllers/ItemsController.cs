@@ -9,7 +9,7 @@ namespace Play.Catalog.Service.Controllers
     [Route("items")]
     public class ItemsController : ControllerBase
     {
-        private static readonly List<ItemDTO> itemDTOs = new()
+        private static readonly List<Item> itemDTOs = new()
         {
             ItemFactory.CreateItemDTO("Potion", "Restores a small amount of HP", 5),
             ItemFactory.CreateItemDTO("Antidote", "Cures poison", 7),
@@ -17,13 +17,13 @@ namespace Play.Catalog.Service.Controllers
         };
 
         [HttpGet]
-        public IEnumerable<ItemDTO> Get()
+        public IEnumerable<Item> Get()
         {
             return itemDTOs;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ItemDTO> GetById(Guid id)
+        public ActionResult<Item> GetById(Guid id)
         {
            var item = itemDTOs.Where(i => i.Equals(id)).SingleOrDefault();
 
@@ -36,9 +36,9 @@ namespace Play.Catalog.Service.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ItemDTO> Post(string name, string description, decimal price)
+        public ActionResult<Item> Post(string name, string description, decimal price)
         {
-            ItemDTO dto = ItemFactory.CreateItemDTO(name, description, price);
+            Item dto = ItemFactory.CreateItemDTO(name, description, price);
             itemDTOs.Add(dto);
 
             return new OkObjectResult(dto);
