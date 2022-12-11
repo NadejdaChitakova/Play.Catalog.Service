@@ -3,11 +3,11 @@ using Play.Catalog.Service.Model;
 
 namespace Play.Catalog.Service.Repositories
 {
-    public class ItemRepository
+    public class ItemRepository : IItemRepository
     {
         private const string collectionName = "items";
         private readonly IMongoCollection<Item> _dbCollection;
-        private readonly FilterDefinitionBuilder<Item> _filterDefinitionBuilder;
+        private readonly FilterDefinitionBuilder<Item> _filterDefinitionBuilder = Builders<Item>.Filter;
 
         public ItemRepository()
         {
